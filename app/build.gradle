@@ -16,13 +16,64 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding{
+        enabled=true
+    }
 }
 
 dependencies {
+
+
+    ext {
+         ROOM_VERSION = "1.1.1"
+         RETROFIT_VERSION = "2.4.0"
+         DAGGER_VERSION = "2.11"
+         ARCH_COMP_VERSION = "1.1.1"
+    }
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0-rc01'
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //Retrofit
+
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+
+    //Room
+
+    implementation "android.arch.persistence.room:runtime:$ROOM_VERSION"
+    annotationProcessor "android.arch.persistence.room:compiler:$ROOM_VERSION"
+    // Test helpers
+    testImplementation "android.arch.persistence.room:testing:$ROOM_VERSION"
+
+    //Dagger
+    implementation "com.google.dagger:dagger-android:$DAGGER_VERSION"
+    implementation "com.google.dagger:dagger-android-support:$DAGGER_VERSION" // if you use the support libraries
+    annotationProcessor "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
+    annotationProcessor "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+
+
+    //Arch-Componenets
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$ARCH_COMP_VERSION"
+    // alternatively - Lifecycles only (no ViewModel or LiveData).
+    //     Support library depends on this lightweight import
+    implementation "android.arch.lifecycle:runtime:$ARCH_COMP_VERSION"
+
+    // alternately - if using Java8, use the following instead of compiler
+    implementation "android.arch.lifecycle:common-java8:$ARCH_COMP_VERSION"
+
+
+    implementation 'com.android.support:recyclerview-v7:28.0.0-alpha1'
 }
